@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oxxtter Portfolio</title>
+  <title>John Daniel Portfolio</title>
   <style>
     :root {
       --bg: #0e0e0e;
       --primary: #00ff66;
+      --danger: #ff3333;
       --text: #fff;
       --secondary: #1a1a1a;
     }
@@ -23,23 +24,73 @@
       font-family: "Courier New", Courier, monospace;
       background-color: var(--bg);
       color: var(--text);
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Hacker Background Animation */
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      overflow: hidden;
+    }
+
+    .matrix-column {
+      position: absolute;
+      top: -100px;
+      color: var(--primary);
+      text-shadow: 0 0 5px var(--primary);
+      font-size: 18px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
+    .binary-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+      background-image: 
+        radial-gradient(circle at 10% 20%, var(--primary) 0.5px, transparent 1px),
+        radial-gradient(circle at 90% 30%, var(--primary) 0.5px, transparent 1px),
+        radial-gradient(circle at 50% 80%, var(--primary) 0.5px, transparent 1px);
+      background-size: 100px 100px;
     }
 
     header {
       padding: 1rem 2rem;
-      background-color: var(--secondary);
+      background-color: rgba(26, 26, 26, 0.8);
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
       z-index: 10;
+      border-bottom: 1px solid var(--primary);
+      backdrop-filter: blur(5px);
     }
 
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
       color: var(--primary);
+      font-family: 'Consolas', monospace;
     }
 
     nav a {
@@ -48,6 +99,7 @@
       color: var(--text);
       font-weight: bold;
       transition: color 0.3s ease;
+      font-size: 0.9rem;
     }
 
     nav a:hover {
@@ -58,6 +110,18 @@
     section {
       padding: 4rem 2rem;
       animation: fadeIn 1s ease-in;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      background-color: rgba(26, 26, 26, 0.7);
+      backdrop-filter: blur(3px);
+      border-radius: 5px;
+      margin-bottom: 2rem;
+      border: 1px solid #333;
+    }
+
+    section:hover {
+      box-shadow: 0 0 15px rgba(0, 255, 102, 0.2);
     }
 
     @keyframes fadeIn {
@@ -68,17 +132,19 @@
     .hero {
       max-width: 700px;
       margin: auto;
+      text-align: center;
     }
 
     .typewriter h1 {
       overflow: hidden;
       border-right: .15em solid var(--primary);
       white-space: nowrap;
-      margin: 0;
+      margin: 0 auto;
       letter-spacing: .1em;
       animation: typing 3s steps(20, end), blink-caret 0.75s step-end infinite;
       font-size: 2.5rem;
       color: var(--primary);
+      width: fit-content;
     }
 
     @keyframes typing {
@@ -101,11 +167,47 @@
       cursor: pointer;
       border-radius: 5px;
       transition: all 0.3s;
+      font-family: 'Courier New', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent,
+        transparent,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+      );
+      transform: rotate(30deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
     }
 
     .btn:hover {
       box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
       transform: scale(1.05);
+    }
+
+    .btn-danger:hover {
+      box-shadow: 0 0 10px var(--danger), 0 0 20px var(--danger);
     }
 
     .grid {
@@ -115,73 +217,186 @@
     }
 
     .card {
-      background-color: var(--secondary);
-      padding: 1.2rem;
-      border-radius: 10px;
+      background-color: rgba(30, 30, 30, 0.8);
+      padding: 1.5rem;
+      border-radius: 5px;
       transition: all 0.4s;
       position: relative;
       box-shadow: 0 0 0px transparent;
+      border: 1px solid #333;
+      backdrop-filter: blur(2px);
     }
 
     .card:hover {
       box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
       transform: translateY(-5px);
+      border-color: var(--primary);
+      background-color: rgba(40, 40, 40, 0.9);
     }
 
     .card h3 {
       color: var(--primary);
       position: relative;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
     }
 
     .card h3::after {
       content: '';
       position: absolute;
       left: 0;
-      bottom: -2px;
-      width: 100%;
+      bottom: -5px;
+      width: 40px;
       height: 2px;
       background: var(--primary);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
     }
 
-    .card:hover h3::after {
-      transform: scaleX(1);
+    .card p {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .card ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0;
+    }
+
+    .card li {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
-      background: var(--secondary);
+      padding: 2rem;
+      background: rgba(26, 26, 26, 0.8);
       color: #888;
+      border-top: 1px solid #333;
+      backdrop-filter: blur(5px);
     }
 
     img.avatar {
-      width: 80px;
+      width: 120px;
       border-radius: 50%;
       margin-bottom: 1rem;
-      border: 2px solid var(--primary);
+      border: 3px solid var(--primary);
+      box-shadow: 0 0 15px var(--primary);
     }
 
     .socials a {
-      margin-right: 1rem;
+      margin: 0 0.8rem;
       color: var(--primary);
       text-decoration: none;
       transition: all 0.3s;
+      display: inline-block;
     }
 
     .socials a:hover {
       text-shadow: 0 0 5px var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .terminal {
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 5px;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid #333;
+      font-family: 'Courier New', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .terminal::before {
+      content: '╭─';
+      position: absolute;
+      top: -11px;
+      left: 10px;
+      color: var(--primary);
+      background: var(--secondary);
+      padding: 0 5px;
+      font-size: 0.9rem;
+    }
+
+    .terminal::after {
+      content: '╰─>';
+      position: absolute;
+      bottom: -11px;
+      right: 10px;
+      color: var(--primary);
+      background: var(--secondary);
+      padding: 0 5px;
+      font-size: 0.9rem;
+    }
+
+    .terminal code {
+      display: block;
+      color: var(--primary);
+      position: relative;
+      z-index: 1;
+    }
+
+    .terminal::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(rgba(0, 255, 102, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 102, 0.05) 1px, transparent 1px);
+      background-size: 10px 10px;
+      pointer-events: none;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .skill-tag {
+      background: #333;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      transition: all 0.3s;
+    }
+
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .skill-tag.primary {
+      background: var(--primary);
+      color: black;
+      font-weight: bold;
     }
 
     @media (max-width: 600px) {
       .typewriter h1 {
         font-size: 1.8rem;
       }
+      header {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      nav {
+        margin-top: 1rem;
+      }
+      nav a {
+        margin: 0 0.5rem;
+      }
     }
 
     /* Glitch effect */
+    .glitch {
+      position: relative;
+    }
+    
     .glitch:hover {
       animation: glitch 0.5s infinite;
     }
@@ -194,72 +409,249 @@
       80% { text-shadow: 0px 0px white; }
       100% { text-shadow: 2px 0 red, -2px 0 blue; }
     }
+
+    .section-title {
+      position: relative;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      animation: underline-pulse 2s infinite;
+    }
+
+    @keyframes underline-pulse {
+      0% { width: 60px; }
+      50% { width: 80px; }
+      100% { width: 60px; }
+    }
+
+    /* Scan line animation */
+    .scanline {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: rgba(0, 255, 102, 0.1);
+      z-index: 9999;
+      pointer-events: none;
+      animation: scan 8s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { top: -10px; }
+      100% { top: 100vh; }
+    }
   </style>
 </head>
 <body>
+  <!-- Hacker Background Elements -->
+  <div class="matrix-bg" id="matrixBg"></div>
+  <div class="binary-pattern"></div>
+  <div class="scanline"></div>
+
   <header>
-    <div class="logo">&lt;John Daniel S P /&gt;</div>
+    <div class="logo">$ whoami</div>
     <nav>
-      <a href="#home">Home</a>
-      <a href="#domains">Domains</a>
-      <a href="#whoami">Whoami</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
+      <a href="#home">~</a>
+      <a href="#skills">/skills</a>
+      <a href="#projects">/projects</a>
+      <a href="#analysis">/analysis</a>
+      <a href="#contact">/contact</a>
     </nav>
   </header>
 
   <section id="home" class="hero">
     <div class="typewriter">
-      <h1 class="glitch">I'm John Daniel</h1>
+      <h1 class="glitch">$ Malware_Analyst</h1>
     </div>
-    <p style="margin-top: 1rem;">
-      MALWARE_ANALYST  REVERSE_ENGENEERING
+    <p style="margin-top: 1.5rem; color: #aaa;">
+      > Reverse Engineering | Threat Intelligence | Incident Response
     </p>
-    <button class="btn">About me</button>
-    <div class="socials" style="margin-top:1rem;">
-      <a href="https://github.com/jd985854/">GitHub</a>
-      <a href="https://www.linkedin.com/in/john-daniel-s-p-210331291?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a>
-      <a href="https://www.instagram.com/_.itz._me_jd_?igsh=MWV4aDVyNWhoN25o">Instagram</a>
+    <div class="terminal" style="margin-top: 2rem; text-align: left;">
+      <code>$ ./about_me.sh</code>
+      <code>> Name: John Daniel S P</code>
+      <code>> Role: Malware Analyst</code>
+      <code>> Location: Dr. Mahalingam College Of Engineering</code>
+      <code>> Focus: Analyzing malicious binaries, reversing malware, threat hunting</code>
+    </div>
+    <div class="socials" style="margin-top:2rem;">
+      <a href="https://github.com/jd985854/" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/john-daniel-s-p-210331291" target="_blank">LinkedIn</a>
+      <a href="https://twitter.com/" target="_blank">Twitter</a>
+      <a href="mailto:your-email@example.com">Email</a>
     </div>
   </section>
 
-  <section id="domains">
-    <h2>Mes Domaines</h2>
+  <section id="skills">
+    <h2 class="section-title">$ skills</h2>
     <div class="grid">
-      <div class="card"><h3>🔍 Malware Analyst</h3><p>Think like Malware, Act like defender.</p></div>
-      <div class="card"><h3>🔁 Reverse Engineering</h3><p>If you write it, I can break it.</p></div>
-      <div class="card"><h3>⚙️ Insident Response</h3><p>When breaches strike, I strike back.</p></div>
-    </div>
-  </section>
-
-  <section id="whoami">
-    <h2>Whoami</h2>
-    <div class="card">
-      <img class="avatar" src="IMG_20241218_203202_508.webp" alt="Profile Photo" />
-      <h3>John Daniel</h3>
-      <p>🎯 Cyber Security Student <br> Malware Analyst and Reverse Engineering</p>
-      <p>I am pursuing Bachelor of Engineering in Computer Science with Cyber Security at Dr.mahalingam College Of Engineering and technology. Motivated and Enthusiastic cyber security student with a strong foundation in Ethical hacking and Malware Analyst. Passonate about protecting digital assets and exploring inovative solutions in cyber seurity, Seeking leverage technical skills and creative mindset to contribute effectively to cyber security project and research.</p>
-      <button class="btn">Download CV</button>
+      <div class="card">
+        <h3>Static Analysis</h3>
+        <ul>
+          <li>PE/ELF/Mach-O file analysis</li>
+          <li>Strings analysis</li>
+          <li>Import/Export table analysis</li>
+          <li>YARA rule creation</li>
+        </ul>
+        <div class="skills">
+          <span class="skill-tag primary">PEiD</span>
+          <span class="skill-tag primary">PEStudio</span>
+          <span class="skill-tag">YARA</span>
+          <span class="skill-tag">BinText</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Dynamic Analysis</h3>
+        <ul>
+          <li>Sandbox execution</li>
+          <li>API monitoring</li>
+          <li>Network traffic analysis</li>
+          <li>Memory forensics</li>
+        </ul>
+        <div class="skills">
+          <span class="skill-tag primary">Cuckoo</span>
+          <span class="skill-tag primary">Process Monitor</span>
+          <span class="skill-tag">Wireshark</span>
+          <span class="skill-tag">Volatility</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Reverse Engineering</h3>
+        <ul>
+          <li>x86/x64 assembly</li>
+          <li>Obfuscation techniques</li>
+          <li>Debugging & Decompilation</li>
+          <li>Unpacking malware</li>
+        </ul>
+        <div class="skills">
+          <span class="skill-tag primary">IDA Pro</span>
+          <span class="skill-tag primary">Ghidra</span>
+          <span class="skill-tag">x64dbg</span>
+          <span class="skill-tag">OllyDbg</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="projects">
-    <h2>Projets</h2>
+    <h2 class="section-title">$ projects</h2>
     <div class="grid">
-      <div class="card"><h3>🔓 Honey pot</h3><p>a decoy system or network designed to attract and trap cyber attackers, diverting them from real, critical systems</p></div>
-      <div class="card"><h3>🖼️ Open port Scanner</h3><p>To scan open ports.</p></div>
+      <div class="card">
+        <h3>🛡️ Custom Sandbox Environment</h3>
+        <p>A controlled environment for malware analysis with automated reporting features.</p>
+        <ul>
+          <li>Integrated Cuckoo Sandbox with custom modules</li>
+          <li>Automated YARA rule generation</li>
+          <li>Behavioral analysis reports</li>
+        </ul>
+        <button class="btn" style="margin-top: 1rem;">View Code</button>
+      </div>
+      <div class="card">
+        <h3>🔍 Malware Dataset</h3>
+        <p>Curated collection of malware samples with analysis notes.</p>
+        <ul>
+          <li>500+ categorized samples</li>
+          <li>Detailed analysis reports</li>
+          <li>IoC database</li>
+        </ul>
+        <button class="btn" style="margin-top: 1rem;">View Samples</button>
+      </div>
+      <div class="card">
+        <h3>📜 YARA Rules Repository</h3>
+        <p>Collection of custom YARA rules for malware detection.</p>
+        <ul>
+          <li>100+ custom rules</li>
+          <li>Covering various malware families</li>
+          <li>Regularly updated</li>
+        </ul>
+        <button class="btn" style="margin-top: 1rem;">View Rules</button>
+      </div>
     </div>
   </section>
 
-  <section id="experience">
-    <h2>Experiences</h2>
+  <section id="analysis">
+    <h2 class="section-title">$ malware_analysis</h2>
     <div class="card">
-      <p>Coming soon...</p>
+      <h3>Recent Analysis Reports</h3>
+      <div class="terminal">
+        <code>$ ./malware_analysis.sh --recent</code>
+        <code>> 1. Emotet variant (2024-06) - Banking Trojan</code>
+        <code>> 2. QakBot loader (2024-05) - Modular malware</code>
+        <code>> 3. DarkComet RAT (2024-04) - Remote Access Trojan</code>
+      </div>
+      <p style="margin-top: 1rem;">Detailed analysis reports available upon request.</p>
+      <button class="btn btn-danger" style="margin-top: 1rem;">Request Samples</button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">$ contact_me</h2>
+    <div class="card">
+      <h3>Get in Touch</h3>
+      <p>For research collaborations, malware analysis requests, or just to discuss cybersecurity:</p>
+      <div class="terminal" style="margin: 1rem 0;">
+        <code>$ echo "Hello John" > contact.txt</code>
+        <code>$ mail -s "Malware Analysis Inquiry" john@example.com < contact.txt</code>
+      </div>
+      <div class="socials" style="margin-top: 1rem;">
+        <a href="https://github.com/jd985854/" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/john-daniel-s-p-210331291" target="_blank">LinkedIn</a>
+        <a href="https://twitter.com/" target="_blank">Twitter</a>
+        <a href="mailto:your-email@example.com">Email</a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2025 John Daniel. All rights reserved.</p>
+    <p>&copy; 2024 John Daniel S P - Malware Analyst</p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; color: #555;">Last updated: $ date "+%Y-%m-%d %H:%M:%S"</p>
   </footer>
+
+  <script>
+    // Create matrix rain effect
+    document.addEventListener('DOMContentLoaded', function() {
+      const matrixBg = document.getElementById('matrixBg');
+      const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+      const columns = Math.floor(window.innerWidth / 20);
+      
+      for (let i = 0; i < columns; i++) {
+        const column = document.createElement('div');
+        column.className = 'matrix-column';
+        column.style.left = (i * 20) + 'px';
+        column.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        column.style.animationDelay = (Math.random() * 5) + 's';
+        
+        // Create random characters
+        let content = '';
+        const length = Math.floor(Math.random() * 20) + 10;
+        for (let j = 0; j < length; j++) {
+          content += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        
+        column.textContent = content;
+        matrixBg.appendChild(column);
+      }
+      
+      // Add occasional glitch effect to the whole page
+      setInterval(() => {
+        if (Math.random() > 0.95) {
+          document.body.style.transform = 'translateX(' + (Math.random() * 4 - 2) + 'px)';
+          setTimeout(() => {
+            document.body.style.transform = 'translateX(0)';
+          }, 100);
+        }
+      }, 5000);
+    });
+  </script>
 </body>
 </html>
